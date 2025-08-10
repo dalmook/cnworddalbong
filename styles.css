@@ -32,9 +32,91 @@ body{
   line-height:1.5;
 }
 
-.app-header,.app-footer{
-  max-width:1100px;
-  margin:0 auto;
+/* layout */
+.app-header,.app-footer{max-width:1100px; margin:0 auto; padding:16px 20px;}
+.app-header{display:flex; align-items:center; justify-content:space-between;}
+.header-actions{display:flex; gap:8px}
+h1{font-size:22px; margin:0}
+.container{max-width:1100px; margin:0 auto; padding: 8px 20px 40px;}
+.card{
+  background:var(--card); border:1px solid var(--border); border-radius:16px;
+  padding:16px; margin-top:14px; box-shadow:0 6px 20px rgba(0,0,0,.06);
+}
+h2{margin:6px 0 14px; font-size:18px}
+.req{color:var(--danger)}
+.grid{display:grid; grid-template-columns:repeat(2,1fr); gap:12px;}
+.field label{display:block; font-size:12px; color:var(--muted); margin-bottom:6px}
+.field input, .field select{
+  width:100%; padding:10px 12px; border-radius:10px; border:1px solid var(--border);
+  background:transparent; color:var(--text); outline:none;
+}
+.col-span-2{grid-column:1/-1}
+.form-actions{margin-top:12px; display:flex; gap:8px; flex-wrap:wrap}
+
+.tools{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; align-items:end}
+.tool label{display:block; font-size:12px; color:var(--muted); margin-bottom:6px}
+.tool.buttons{display:flex; gap:8px; grid-column:1/-1; flex-wrap:wrap}
+.ml8{margin-left:8px}
+
+/* buttons */
+.btn{
+  padding:10px 14px; border-radius:10px; border:1px solid var(--border);
+  background:transparent; color:var(--text); cursor:pointer;
+}
+.btn:hover{filter:brightness(1.1)}
+.btn.primary{background:var(--primary); color:#fff; border-color:transparent}
+.btn.secondary{background:transparent; color:var(--text)}
+.btn.danger{background:var(--danger); color:#fff; border-color:transparent}
+.btn.success{background:var(--success); color:#fff; border-color:transparent}
+.icon-btn{
+  background:transparent; border:none; color:var(--muted);
+  font-size:18px; cursor:pointer; padding:6px 8px; border-radius:8px;
+}
+.icon-btn:hover{color:var(--text); background:rgba(127,127,127,.08)}
+
+/* table */
+.table-wrap{overflow:auto; border:1px solid var(--border); border-radius:12px}
+.table{width:100%; border-collapse:separate; border-spacing:0}
+.table th,.table td{
+  font-size:14px; text-align:left; padding:12px; border-bottom:1px solid var(--border);
+  vertical-align:top;
+}
+.table thead th{position:sticky; top:0; background:var(--card); z-index:1}
+.table tbody tr:nth-child(odd){background:var(--table-row)}
+.row-actions{display:flex; gap:6px; flex-wrap:wrap}
+
+/* modal / flashcard */
+.modal{position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,.5);}
+.modal.hidden{display:none}
+.modal-content{
+  width:min(860px,94vw); background:var(--card); color:var(--text);
+  border:1px solid var(--border); border-radius:16px; overflow:hidden;
+}
+.modal-header{display:flex; align-items:center; justify-content:space-between; padding:12px 14px; border-bottom:1px solid var(--border);}
+.modal-body{padding:16px}
+.flash-top{display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;}
+.flashcard{
+  user-select:none; position:relative;
+  border:2px dashed var(--border); border-radius:16px; padding:24px; min-height:220px;
+  display:flex; align-items:center; justify-content:center; text-align:center; transition:transform .25s;
+}
+.flashcard:focus{outline:2px solid var(--primary)}
+.flashcard.flipped{transform:rotateY(180deg)}
+.front{font-size:44px; font-weight:700}
+.back .pinyin{font-size:20px; color:var(--muted); margin-bottom:6px}
+.back .meaning{font-size:22px; margin-bottom:6px}
+.back .example{font-size:16px; color:var(--muted)}
+.speak-btn{position:absolute; top:10px; right:10px}
+.tts-note{color:var(--muted); font-size:12px; margin-top:10px}
+
+.app-footer{opacity:.7; text-align:center; padding-bottom:28px}
+
+@media (max-width: 780px){
+  .grid{grid-template-columns:1fr}
+  .tools{grid-template-columns:1fr 1fr}
+  .tool.buttons{grid-column:1/-1}
+  .front{font-size:36px}
+}  margin:0 auto;
   padding:16px 20px;
 }
 .app-header{
