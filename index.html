@@ -45,6 +45,161 @@
               <option>형태소/기타</option>
             </select>
           </div>
+          <div class="field">
+            <label for="chapter">챕터</label>
+            <input id="chapter" placeholder="예: 3과 / HSK4 / 내 리스트" />
+          </div>
+          <div class="field col-span-2">
+            <label for="example">예문 (선택)</label>
+            <input id="example" placeholder="我每天学习中文。" />
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn primary" id="saveBtn">저장</button>
+          <button type="button" class="btn" id="resetBtn">초기화</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- 도구들 -->
+    <section class="card">
+      <h2>도구</h2>
+      <div class="tools">
+        <div class="tool">
+          <label for="search">검색</label>
+          <input id="search" placeholder="한자/병음/뜻으로 검색" />
+        </div>
+        <div class="tool">
+          <label for="filterPos">품사</label>
+          <select id="filterPos">
+            <option value="">전체</option>
+            <option>명사</option>
+            <option>동사</option>
+            <option>형용사</option>
+            <option>부사</option>
+            <option>형태소/기타</option>
+          </select>
+        </div>
+        <div class="tool">
+          <label for="filterChapter">챕터</label>
+          <select id="filterChapter">
+            <option value="">전체</option>
+            <!-- 동적 옵션 -->
+          </select>
+        </div>
+        <div class="tool">
+          <label for="sortBy">정렬</label>
+          <select id="sortBy">
+            <option value="recent">최근 추가순</option>
+            <option value="hanzi">한자 가나다</option>
+            <option value="priority">학습 우선순위</option>
+          </select>
+        </div>
+        <div class="tool buttons">
+          <input type="file" id="importFile" accept=".json,.csv" hidden />
+          <button id="exportJsonBtn" class="btn">JSON 내보내기</button>
+          <button id="exportCsvBtn" class="btn">CSV 내보내기</button>
+          <button id="importBtn" class="btn">가져오기</button>
+          <button id="clearAllBtn" class="btn danger">전체 삭제</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 목록 -->
+    <section class="card">
+      <h2>내 단어 (<span id="wordCount">0</span>)</h2>
+      <div class="table-wrap">
+        <table class="table" id="wordTable">
+          <thead>
+            <tr>
+              <th style="width: 16%">한자</th>
+              <th style="width: 16%">병음</th>
+              <th style="width: 22%">뜻</th>
+              <th style="width: 10%">품사</th>
+              <th style="width: 12%">챕터</th>
+              <th style="width: 12%">다음복습</th>
+              <th style="width: 12%">작업</th>
+            </tr>
+          </thead>
+          <tbody id="wordTbody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- 플래시카드 모달 -->
+  <div id="flashcardModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="flashTitle">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="flashTitle">플래시카드</h3>
+        <button id="closeFlashBtn" class="icon-btn" aria-label="닫기">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="flash-top">
+          <div class="flash-progress">
+            <span id="flashIndex">0</span>/<span id="flashTotal">0</span>
+          </div>
+          <div class="flash-filters">
+            <label>
+              <input type="checkbox" id="dueOnly" checked />
+              복습 기한 도래 카드만
+            </label>
+            <label class="ml8">
+              방향
+              <select id="cardDirection">
+                <option value="hanziToMeaning">한자[병음] → 뜻</option>
+                <option value="meaningToHanzi">뜻 → 한자[병음]</option>
+              </select>
+            </label>
+            <label class="ml8">
+              자동 발음
+              <input type="checkbox" id="autoSpeak" />
+            </label>
+          </div>
+        </div>
+
+        <div id="flashcard" class="flashcard" tabindex="0" aria-live="polite">
+          <button id="speakBtn" class="icon-btn speak-btn" title="발음 재생" aria-label="발음 재생">🔊</button>
+          <div class="front" id="flashFront">—</div>
+          <div class="back" id="flashBack">
+            <div class="pinyin" id="flashPinyin">—</div>
+            <div class="meaning" id="flashMeaning">—</div>
+            <div class="example" id="flashExample">—</div>
+          </div>
+        </div>
+
+        <div class="flash-actions">
+          <button class="btn" id="prevCardBtn">이전</button>
+          <button class="btn primary" id="flipCardBtn">뒤집기 (스페이스)</button>
+          <button class="btn" id="nextCardBtn">다음</button>
+        </div>
+        <div class="flash-grade">
+          <button class="btn danger" id="gradeAgain">Again</button>
+          <button class="btn" id="gradeGood">Good</button>
+          <button class="btn success" id="gradeEasy">Easy</button>
+        </div>
+        <p class="tts-note" id="ttsNote" hidden>⚠️ 이 브라우저는 음성합성을 지원하지 않거나 중국어(zh-CN) 음성이 없을 수 있어요.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="app-footer">
+    <small>로컬 저장됨 · GitHub Pages에서 그대로 동작</small>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>          <div class="field">
+            <label for="pos">품사</label>
+            <select id="pos">
+              <option value="">— 선택 —</option>
+              <option>명사</option>
+              <option>동사</option>
+              <option>형용사</option>
+              <option>부사</option>
+              <option>형태소/기타</option>
+            </select>
+          </div>
           <div class="field col-span-2">
             <label for="example">예문 (선택)</label>
             <input id="example" placeholder="我每天学习中文。" />
